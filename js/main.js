@@ -16,10 +16,20 @@ form.addEventListener('submit', (e) => {
 })
 
 btnOk.addEventListener('click', () => {
-    e.preventDefault()
+    // e.preventDefault()
     addTodo()
 })
 
+// added option to recognize and delete immediately todo when page reload and todo is completed
+let spanXlocalStorage = document.querySelectorAll('.completed span')
+console.log(spanXlocalStorage)
+if (spanXlocalStorage) {
+    spanXlocalStorage.forEach(x => {
+        x.addEventListener('click', (e) => {
+            x.parentElement.remove()
+        })
+    })
+}
 
 // CREATE TODO ELEMENT
 function addTodo(todo) {
@@ -41,15 +51,6 @@ function addTodo(todo) {
         // if todo is read from local storage, update classlist
         if (todo && todo.completed) {
             todoEl.classList.add('completed')
-
-            // option to delete already completed todo from localstorage
-            let spanXlocalStorage = document.querySelectorAll('.completed span')
-            console.log(spanXlocalStorage)
-            spanXlocalStorage.forEach(x => {
-                x.addEventListener('click', (e) => {
-                    x.parentElement.remove()
-                })
-            })
         }
 
         // it needs to be innerHTML because of span element, if it exist in local storage, it needs to be recognised
